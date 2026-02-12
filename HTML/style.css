@@ -1,0 +1,129 @@
+/* Fonts and body */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;  /* clean and readable for long text */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd1dc, #ffb6c1, #ffc0cb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Heading */
+h1 {
+  font-family: 'Roboto', sans-serif;
+  color: #d5007d;
+  font-size: 3em;
+  text-shadow: 2px 2px #fff;
+  animation: pulse 1.5s infinite;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+button {
+  padding: 20px 40px;       /* bigger for easier click */
+  font-size: 24px;           /* bigger font */
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+#yes {
+  background-color: #ff6699;
+  color: white;
+  box-shadow: 0 0 25px #ff6699;
+}
+
+#no {
+  background-color: #ff3366;
+  color: white;
+  position: absolute;
+  box-shadow: 0 0 25px #ff3366;
+}
+
+/* Love Letter */
+#loveLetter {
+  display: none;
+  margin-top: 30px;
+  font-size: 22px;           /* readable font size */
+  color: #800000;
+  max-width: 85%;
+  line-height: 1.7;          /* more spacing for long text */
+  text-align: center;
+  animation: fadeIn 1s forwards;
+  opacity: 0;
+}
+
+#loveLetter img {
+  margin-top: 20px;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px #ff3366;
+  animation: fadeIn 2s ease forwards;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Loading */
+#loading {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#loading p {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px #d5007d;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #d5007d;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 24px;
+  color: #ff3366;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(1); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+}
