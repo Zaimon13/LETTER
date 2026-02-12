@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.multiRootWorkspaceName": "Visual Studio code"
+    "liveServer.settings.multiRootWorkspaceName": "Visual Studio code",
+    "liveServer.settings.port": 5501
 }
