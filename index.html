@@ -715,20 +715,6 @@ Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forev
         }
 
 
-        /* --- 2. Custom Image Upload Handler --- */
-
-        function loadUserImage(event) {
-            const reader = new FileReader();
-
-            reader.onload = function() {
-                const output = document.getElementById('displayImg');
-                output.src = reader.result;
-            };
-
-            if (event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        }
 
 
         /* --- 3. Countdown To December 22, 2026 --- */
