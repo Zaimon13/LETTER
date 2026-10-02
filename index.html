@@ -1,603 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 21st Birthday, My Love! 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 21st Birthday, My Love! 💖</title>
 
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <!-- Canvas Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+:root{--primary:#ff4b72;--accent:#ffd166;--bg-gradient:linear-gradient(135deg,#0d0614 0%,#210d2b 50%,#150826 100%);--glass-bg:rgba(255,255,255,.07);--glass-border:rgba(255,255,255,.15);--text-light:#fff;--text-muted:#e2c0d8}
+*{box-sizing:border-box;margin:0;padding:0;user-select:none}
+body{font-family:'Poppins',sans-serif;background:var(--bg-gradient);color:var(--text-light);min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;align-items:center}
+#heartCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
 
-    <style>
-        :root {
-            --primary: #ff4b72;
-            --primary-soft: #ff758c;
-            --accent: #ffd166;
-            --bg-gradient: linear-gradient(135deg, #0d0614 0%, #210d2b 50%, #150826 100%);
-            --glass-bg: rgba(255, 255, 255, 0.07);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --text-light: #ffffff;
-            --text-muted: #e2c0d8;
-            --gold: #f39c12;
-        }
+.music-btn{position:fixed;top:20px;right:20px;z-index:100;background:rgba(255,75,114,.25);border:1px solid var(--primary);backdrop-filter:blur(10px);color:#fff;padding:10px 18px;border-radius:30px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:.9rem;transition:all .3s ease;box-shadow:0 0 15px rgba(255,75,114,.3)}
+.music-btn:hover{background:var(--primary);transform:scale(1.05);box-shadow:0 0 25px rgba(255,75,114,.6)}
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+.app-container{width:100%;max-width:900px;padding:30px 20px 60px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:40px}
+.header{text-align:center;margin-top:10px}
+.header h1{font-family:'Dancing Script',cursive;font-size:3.8rem;background:linear-gradient(45deg,#ff758c,#ffd166,#ff4b72);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.header p{color:var(--text-muted);font-size:1.1rem;letter-spacing:1.5px;text-transform:uppercase}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.card-stage{perspective:1000px;width:100%;max-width:500px;height:300px;cursor:pointer}
+.envelope{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.175,.885,.32,1.275);background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:20px;backdrop-filter:blur(15px);box-shadow:0 15px 35px rgba(0,0,0,.5),0 0 30px rgba(255,75,114,.2)}
+.envelope.open{transform:rotateY(180deg)}
+.envelope-front,.envelope-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;border-radius:20px;text-align:center}
+.envelope-front{background:linear-gradient(135deg,rgba(255,75,114,.2),rgba(33,13,43,.8));border:1px solid rgba(255,255,255,.2)}
+.envelope-front i.seal{font-size:3.5rem;color:var(--primary);margin-bottom:15px;animation:pulse 1.5s infinite alternate;filter:drop-shadow(0 0 10px var(--primary))}
+.envelope-front span{font-size:1.2rem;font-weight:500;letter-spacing:1px}
+.envelope-back{transform:rotateY(180deg);background:linear-gradient(135deg,rgba(255,209,102,.15),rgba(33,13,43,.9));border:1px solid rgba(255,209,102,.3)}
+@keyframes pulse{0%{transform:scale(1)}100%{transform:scale(1.15)}}
 
-        /* Floating Hearts Background Canvas */
-        #heartCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
+.photo-card-wrapper{width:100%;display:flex;flex-direction:column;align-items:center}
+.polaroid-frame{background:#fff;padding:15px 15px 25px;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,.6),0 0 20px rgba(255,75,114,.3);transform:rotate(-2deg);transition:all .4s ease;max-width:380px;width:100%}
+.polaroid-frame:hover{transform:rotate(0) scale(1.02);box-shadow:0 25px 50px rgba(0,0,0,.8),0 0 30px rgba(255,75,114,.5)}
+.polaroid-img-container{width:100%;height:380px;background:#2b2b2b;border-radius:8px;overflow:hidden;position:relative;display:flex;justify-content:center;align-items:center}
+.polaroid-img-container img{width:100%;height:100%;object-fit:cover}
+.polaroid-caption{font-family:'Dancing Script',cursive;color:#222;font-size:1.8rem;text-align:center;margin-top:15px;font-weight:700}
 
-        /* Music Controls */
-        .music-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(255, 75, 114, 0.25);
-            border: 1px solid var(--primary);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 10px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 75, 114, 0.3);
-        }
+.letter-box{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:24px;padding:35px 30px;backdrop-filter:blur(15px);width:100%;box-shadow:0 10px 30px rgba(0,0,0,.4);line-height:1.8;font-size:1.05rem;color:#f3e5f5}
+.letter-box h2{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.8rem;margin-bottom:20px;text-align:center}
+.letter-content{white-space:pre-line;text-align:justify}
 
-        .music-btn:hover {
-            background: var(--primary);
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(255, 75, 114, 0.6);
-        }
+.redesigned-footer{width:100%;display:flex;flex-direction:column;gap:30px;margin-top:20px}
+.sky-card{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,75,114,.05));border:1px solid rgba(255,209,102,.25);border-radius:20px;padding:30px 20px;backdrop-filter:blur(12px);text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.sky-card i.sky-icon{font-size:2.2rem;color:var(--accent);margin-bottom:12px;filter:drop-shadow(0 0 10px var(--accent))}
+.sky-card h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:10px}
+.sky-card p{color:var(--text-muted);font-size:.95rem;max-width:600px;margin:0 auto 20px;line-height:1.6}
+.location-pills{display:flex;justify-content:center;align-items:center;gap:15px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);padding:8px 18px;border-radius:30px;font-size:.85rem;display:flex;align-items:center;gap:8px;color:#ffe6f0}
+.pill-connector{color:var(--primary);font-size:1.1rem;animation:pulse 1s infinite alternate}
 
-        /* Container */
-        .app-container {
-            width: 100%;
-            max-width: 900px;
-            padding: 30px 20px 60px;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-        }
+.countdown-card{background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:20px;padding:25px 20px;backdrop-filter:blur(10px);text-align:center}
+.countdown-card h4{font-size:1.1rem;color:var(--text-muted);margin-bottom:18px;letter-spacing:1px;text-transform:uppercase}
+.timer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:450px;margin:0 auto}
+.timer-box{background:rgba(255,75,114,.12);border:1px solid rgba(255,75,114,.3);border-radius:12px;padding:12px 5px;display:flex;flex-direction:column;align-items:center}
+.timer-box .num{font-size:1.6rem;font-weight:700}
+.timer-box .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:2px}
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-top: 10px;
-        }
+.bond-banner{background:linear-gradient(90deg,rgba(255,75,114,.2),rgba(255,209,102,.2));border:1px solid rgba(255,209,102,.4);border-radius:50px;padding:15px 25px;display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;max-width:400px;box-shadow:0 0 20px rgba(255,209,102,.15)}
+.bond-banner i{font-size:1.4rem;color:var(--accent)}
+.bond-banner span{font-weight:600;letter-spacing:1px;font-size:.95rem;background:linear-gradient(45deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.footer-credits{text-align:center;font-size:.85rem;color:rgba(255,255,255,.4);margin-top:10px}
 
-        .header h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.8rem;
-            background: linear-gradient(45deg, #ff758c, #ffd166, #ff4b72);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 75, 114, 0.3);
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        /* Envelope */
-        .card-stage {
-            perspective: 1000px;
-            width: 100%;
-            max-width: 500px;
-            height: 300px;
-            cursor: pointer;
-        }
-
-        .envelope {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
-                        0 0 30px rgba(255, 75, 114, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .envelope.open {
-            transform: rotateY(180deg);
-        }
-
-        .envelope-front,
-        .envelope-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 25px;
-            border-radius: 20px;
-        }
-
-        .envelope-front {
-            background: linear-gradient(
-                135deg,
-                rgba(255,75,114,0.2),
-                rgba(33,13,43,0.8)
-            );
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .envelope-front i.seal {
-            font-size: 3.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            animation: pulse 1.5s infinite alternate;
-            filter: drop-shadow(0 0 10px var(--primary));
-        }
-
-        .envelope-front span {
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .envelope-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(
-                135deg,
-                rgba(255,209,102,0.15),
-                rgba(33,13,43,0.9)
-            );
-            border: 1px solid rgba(255,209,102,0.3);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.15);
-            }
-        }
-
-        /* Photo Section */
-        .photo-card-wrapper {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .polaroid-frame {
-            background: #ffffff;
-            padding: 15px 15px 25px 15px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6),
-                        0 0 20px rgba(255, 75, 114, 0.3);
-            transform: rotate(-2deg);
-            transition: all 0.4s ease;
-            max-width: 380px;
-            width: 100%;
-            position: relative;
-        }
-
-        .polaroid-frame:hover {
-            transform: rotate(0deg) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8),
-                        0 0 30px rgba(255, 75, 114, 0.5);
-        }
-
-        .polaroid-img-container {
-            width: 100%;
-            height: 380px;
-            background: #2b2b2b;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .polaroid-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .polaroid-caption {
-            font-family: 'Dancing Script', cursive;
-            color: #222;
-            font-size: 1.8rem;
-            text-align: center;
-            margin-top: 15px;
-            font-weight: 700;
-        }
-
-        .upload-overlay {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            color: white;
-            transition: background 0.2s;
-        }
-
-        .upload-overlay:hover {
-            background: var(--primary);
-        }
-
-        #imageUpload {
-            display: none;
-        }
-
-        /* Letter */
-        .letter-box {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 35px 30px;
-            backdrop-filter: blur(15px);
-            width: 100%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            line-height: 1.8;
-            font-size: 1.05rem;
-            color: #f3e5f5;
-            position: relative;
-        }
-
-        .letter-box h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--accent);
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .letter-content {
-            white-space: pre-line;
-            text-align: justify;
-        }
-
-        /* Footer */
-        .redesigned-footer {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        /* Sky Card */
-        .sky-card {
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0.08),
-                rgba(255,75,114,0.05)
-            );
-            border: 1px solid rgba(255, 209, 102, 0.25);
-            border-radius: 20px;
-            padding: 30px 20px;
-            backdrop-filter: blur(12px);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .sky-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(
-                circle,
-                rgba(255,209,102,0.08) 0%,
-                transparent 60%
-            );
-            pointer-events: none;
-        }
-
-        .sky-card i.sky-icon {
-            font-size: 2.2rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 10px var(--accent));
-        }
-
-        .sky-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .sky-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            max-width: 600px;
-            margin: 0 auto 20px;
-            line-height: 1.6;
-        }
-
-        .location-pills {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .pill {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 8px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffe6f0;
-        }
-
-        .pill-connector {
-            color: var(--primary);
-            font-size: 1.1rem;
-            animation: pulse 1s infinite alternate;
-        }
-
-        /* Countdown */
-        .countdown-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 25px 20px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-        }
-
-        .countdown-card h4 {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 18px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .timer-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-
-        .timer-box {
-            background: rgba(255, 75, 114, 0.12);
-            border: 1px solid rgba(255, 75, 114, 0.3);
-            border-radius: 12px;
-            padding: 12px 5px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .timer-box span.num {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .timer-box span.label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        /* Bond Banner */
-        .bond-banner {
-            background: linear-gradient(
-                90deg,
-                rgba(255,75,114,0.2) 0%,
-                rgba(255,209,102,0.2) 100%
-            );
-            border: 1px solid rgba(255, 209, 102, 0.4);
-            border-radius: 50px;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 0 auto;
-            max-width: 400px;
-            box-shadow: 0 0 20px rgba(255, 209, 102, 0.15);
-        }
-
-        .bond-banner i {
-            font-size: 1.4rem;
-            color: var(--accent);
-        }
-
-        .bond-banner span {
-            font-weight: 600;
-            letter-spacing: 1px;
-            font-size: 0.95rem;
-            background: linear-gradient(45deg, #ffffff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Footer Credits */
-        .footer-credits {
-            text-align: center;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
-            margin-top: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2.8rem;
-            }
-
-            .timer-grid {
-                gap: 8px;
-            }
-
-            .timer-box span.num {
-                font-size: 1.3rem;
-            }
-
-            .letter-box {
-                padding: 25px 20px;
-            }
-        }
-    </style>
+@media (max-width:600px){.header h1{font-size:2.8rem}.timer-grid{gap:8px}.timer-box .num{font-size:1.3rem}.letter-box{padding:25px 20px}}
+</style>
 </head>
 
 <body>
+<canvas id="heartCanvas"></canvas>
 
-    <!-- Canvas for Floating Hearts -->
-    <canvas id="heartCanvas"></canvas>
+<button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()">
+  <i class="fa-solid fa-music"></i>
+  <span id="musicBtnText">Play Music</span>
+</button>
 
-    <!-- Music Toggle -->
-    <button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()">
-        <i class="fa-solid fa-music"></i>
-        <span id="musicBtnText">Play Music</span>
-    </button>
+<div class="app-container">
 
-    <div class="app-container">
+  <header class="header">
+    <h1>Happy Birthday, My Love! 💕</h1>
+    <p>Celebrating Your Special 21st Milestone</p>
+  </header>
 
-        <!-- Header -->
-        <header class="header">
-            <h1>Happy Birthday, My Love! 💕</h1>
-            <p>Celebrating Your Special 21st Milestone</p>
-        </header>
+  <div class="card-stage" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="envelope-front">
+        <i class="fa-solid fa-heart seal"></i>
+        <span>Tap to Open Your Card ✨</span>
+      </div>
+      <div class="envelope-back">
+        <i class="fa-solid fa-cake-candles" style="font-size:3rem;color:var(--accent);margin-bottom:10px;"></i>
+        <h3 style="font-family:'Dancing Script';font-size:2.2rem;color:#fff;">Happy 21st Birthday!</h3>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-top:5px;">Click anywhere to trigger confetti 🎉</p>
+      </div>
+    </div>
+  </div>
 
-        <!-- Interactive Card -->
-        <div class="card-stage" onclick="openEnvelope()">
-            <div class="envelope" id="envelope">
+  <!-- Photo -->
+  <div class="photo-card-wrapper">
+    <div class="polaroid-frame">
+      <div class="polaroid-img-container">
+        <img id="displayImg" src="images/zaii.jpg" alt="Us Together">
+      </div>
+      <div class="polaroid-caption">Forever My Favorite 💕</div>
+    </div>
+  </div>
 
-                <div class="envelope-front">
-                    <i class="fa-solid fa-heart seal"></i>
-                    <span>Tap to Open Your Card ✨</span>
-                </div>
-
-                <div class="envelope-back">
-                    <i class="fa-solid fa-cake-candles"
-                       style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;">
-                    </i>
-
-                    <h3 style="font-family: 'Dancing Script'; font-size: 2.2rem; color: #fff;">
-                        Happy 21st Birthday!
-                    </h3>
-
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">
-                        Click anywhere to trigger confetti 🎉
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Photo -->
-        <div class="photo-card-wrapper">
-
-            <div class="polaroid-frame">
-
-                <div class="polaroid-img-container">
-
-                    <!-- Standard Base64 SVG placeholder preventing browser file load failure -->
-                    <img
-                        id="displayImg"
-                        src="/images/zaii.jpg"
-                        alt="Us Together"
-                    >
-
-                    <label for="imageUpload" class="upload-overlay">
-                        <i class="fa-solid fa-camera"></i>
-                        Change Photo
-                    </label>
-
-                    <input
-                        type="file"
-                        id="imageUpload"
-                        accept="image/*"
-                        onchange="loadUserImage(event)"
-                    >
-
-                </div>
-
-                <div class="polaroid-caption">
-                    Forever My Favorite 💕
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Love Letter -->
-        <div class="letter-box">
-
-            <h2>To My Beautiful Birthday Girl ✨</h2>
-
-            <div class="letter-content">
-
+  <!-- Love Letter -->
+  <div class="letter-box">
+    <h2>To My Beautiful Birthday Girl ✨</h2>
+    <div class="letter-content">
 <strong>Happy 21st Birthday to the absolute love of my life! 💖✨🎂</strong>
 
 Today is such a monumental milestone as you officially turn 21, and even though there are thousands of miles and whole time zones separating us right now, I hope you can feel every bit of my heart holding you close today. If I could jump through this screen right now just to bring you your favorite food, hold your hand, and see that gorgeous smile of yours in person, I would do it in a heartbeat.
@@ -613,360 +127,162 @@ I am counting down the days until there are no more screens between us, no more 
 Enjoy your special day, my love! Eat lots of delicious food and take good care of yourself over there. My love for you will never change and will only grow deeper and stronger with each passing day.
 
 Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forever. 🥳🎂🎉❤️
+    </div>
+  </div>
 
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="redesigned-footer">
-
-            <!-- One Sky Above Us -->
-            <div class="sky-card">
-
-                <i class="fa-solid fa-cloud-moon sky-icon"></i>
-
-                <h3>One Sky Above Us 🌌</h3>
-
-                <p>
-                    No matter how many ocean miles or time zones divide us,
-                    we are always looking up at the exact same sky and sharing
-                    the exact same sun and stars.
-                </p>
-
-                <div class="location-pills">
-
-                    <div class="pill">
-                        <i class="fa-solid fa-location-dot"
-                           style="color: var(--primary);">
-                        </i>
-                        Philippines
-                    </div>
-
-                    <i class="fa-solid fa-heart pill-connector"></i>
-
-                    <div class="pill">
-                        <i class="fa-solid fa-location-dot"
-                           style="color: var(--accent);">
-                        </i>
-                        New Zealand
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Countdown -->
-            <div class="countdown-card">
-
-                <h4>
-                    <i class="fa-solid fa-hourglass-half"
-                       style="color: var(--accent); margin-right: 8px;">
-                    </i>
-                    Countdown To Our Next Reunion
-                </h4>
-
-                <div class="timer-grid">
-
-                    <div class="timer-box">
-                        <span class="num" id="days">--</span>
-                        <span class="label">Days</span>
-                    </div>
-
-                    <div class="timer-box">
-                        <span class="num" id="hours">--</span>
-                        <span class="label">Hours</span>
-                    </div>
-
-                    <div class="timer-box">
-                        <span class="num" id="minutes">--</span>
-                        <span class="label">Mins</span>
-                    </div>
-
-                    <div class="timer-box">
-                        <span class="num" id="seconds">--</span>
-                        <span class="label">Secs</span>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Bond Banner -->
-            <div class="bond-banner">
-
-                <i class="fa-solid fa-infinity"></i>
-
-                <span>
-                    An Unbreakable Bond Across Distance
-                </span>
-
-                <i class="fa-solid fa-infinity"></i>
-
-            </div>
-
-            <div class="footer-credits">
-                Made with ❤️ for your 21st Birthday
-            </div>
-
-        </footer>
-
+  <footer class="redesigned-footer">
+    <div class="sky-card">
+      <i class="fa-solid fa-cloud-moon sky-icon"></i>
+      <h3>One Sky Above Us 🌌</h3>
+      <p>No matter how many ocean miles or time zones divide us, we are always looking up at the exact same sky and sharing the exact same sun and stars.</p>
+      <div class="location-pills">
+        <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Philippines</div>
+        <i class="fa-solid fa-heart pill-connector"></i>
+        <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> New Zealand</div>
+      </div>
     </div>
 
-    <script>
+    <div class="countdown-card">
+      <h4><i class="fa-solid fa-hourglass-half" style="color:var(--accent);margin-right:8px;"></i>Countdown To Our Next Reunion</h4>
+      <div class="timer-grid">
+        <div class="timer-box"><span class="num" id="days">--</span><span class="label">Days</span></div>
+        <div class="timer-box"><span class="num" id="hours">--</span><span class="label">Hours</span></div>
+        <div class="timer-box"><span class="num" id="minutes">--</span><span class="label">Mins</span></div>
+        <div class="timer-box"><span class="num" id="seconds">--</span><span class="label">Secs</span></div>
+      </div>
+    </div>
 
-        /* --- 1. Envelope Opening & Confetti --- */
+    <div class="bond-banner">
+      <i class="fa-solid fa-infinity"></i>
+      <span>An Unbreakable Bond Across Distance</span>
+      <i class="fa-solid fa-infinity"></i>
+    </div>
 
-        function openEnvelope() {
-            const env = document.getElementById('envelope');
-            env.classList.toggle('open');
-            triggerConfetti();
-        }
+    <div class="footer-credits">Made with ❤️ for your 21st Birthday</div>
+  </footer>
+</div>
 
-        function triggerConfetti() {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        }
+<script>
+/* 1. Envelope + confetti */
+function openEnvelope(){
+  document.getElementById('envelope').classList.toggle('open');
+  triggerConfetti();
+}
+function triggerConfetti(){
+  if (typeof confetti === 'function') confetti({particleCount:100,spread:70,origin:{y:.6}});
+}
 
+/* 2. Countdown to December 22, 2026 */
+const targetDate = new Date("December 22, 2026 00:00:00").getTime();
+function updateCountdown(){
+  const distance = targetDate - Date.now();
+  const set = (id, v) => document.getElementById(id).innerText = String(v).padStart(2,'0');
+  if (distance <= 0){ ['days','hours','minutes','seconds'].forEach(id => set(id,0)); return; }
+  set('days', Math.floor(distance / 86400000));
+  set('hours', Math.floor(distance / 3600000 % 24));
+  set('minutes', Math.floor(distance / 60000 % 60));
+  set('seconds', Math.floor(distance / 1000 % 60));
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
-        /* --- 2. Custom Image Upload Handler --- */
+/* 3. Birthday melody (Web Audio) */
+let audioCtx = null, isPlaying = false, currentTimeout = null;
+const birthdayNotes = [
+  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:293.66,duration:.8},{note:261.63,duration:.8},{note:349.23,duration:.8},{note:329.63,duration:1.2},
+  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:293.66,duration:.8},{note:261.63,duration:.8},{note:392.00,duration:.8},{note:349.23,duration:1.2},
+  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:523.25,duration:.8},{note:440.00,duration:.8},{note:349.23,duration:.8},{note:329.63,duration:.8},{note:293.66,duration:.8},
+  {note:466.16,duration:.4},{note:466.16,duration:.4},{note:440.00,duration:.8},{note:349.23,duration:.8},{note:392.00,duration:.8},{note:349.23,duration:1.4}
+];
+function playTone(freq, duration){
+  if (!isPlaying || !audioCtx) return;
+  const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  gain.gain.setValueAtTime(.15, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + duration);
+  osc.connect(gain); gain.connect(audioCtx.destination);
+  osc.start(); osc.stop(audioCtx.currentTime + duration);
+}
+function playMelodySequence(index = 0){
+  if (!isPlaying) return;
+  if (index >= birthdayNotes.length) index = 0;
+  const item = birthdayNotes[index];
+  playTone(item.note, item.duration);
+  currentTimeout = setTimeout(() => playMelodySequence(index + 1), item.duration * 600);
+}
+function toggleAudio(){
+  const btnText = document.getElementById('musicBtnText');
+  if (!isPlaying){
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioCtx.resume();
+    isPlaying = true;
+    btnText.innerText = 'Pause Music';
+    playMelodySequence();
+  } else {
+    isPlaying = false;
+    btnText.innerText = 'Play Music';
+    if (currentTimeout) clearTimeout(currentTimeout);
+  }
+}
 
-        function loadUserImage(event) {
-            const reader = new FileReader();
+/* 4. Floating hearts */
+const canvas = document.getElementById('heartCanvas');
+const ctx = canvas.getContext('2d');
+let hearts = [];
+function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-            reader.onload = function() {
-                const output = document.getElementById('displayImg');
-                output.src = reader.result;
-            };
-
-            if (event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        }
-
-
-        /* --- 3. Countdown To December 22, 2026 --- */
-
-        const targetDate = new Date("December 22, 2026 00:00:00").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance <= 0) {
-                document.getElementById("days").innerText = "00";
-                document.getElementById("hours").innerText = "00";
-                document.getElementById("minutes").innerText = "00";
-                document.getElementById("seconds").innerText = "00";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((distance / (1000 * 60)) % 60);
-            const seconds = Math.floor((distance / 1000) % 60);
-
-            document.getElementById("days").innerText = String(days).padStart(2, '0');
-            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-
-
-        /* --- 4. Web Audio API - Birthday Melody --- */
-
-        let audioCtx = null;
-        let isPlaying = false;
-        let currentTimeout = null;
-
-        const birthdayNotes = [
-            { note: 261.63, duration: 0.4 },
-            { note: 261.63, duration: 0.4 },
-            { note: 293.66, duration: 0.8 },
-            { note: 261.63, duration: 0.8 },
-            { note: 349.23, duration: 0.8 },
-            { note: 329.63, duration: 1.2 },
-
-            { note: 261.63, duration: 0.4 },
-            { note: 261.63, duration: 0.4 },
-            { note: 293.66, duration: 0.8 },
-            { note: 261.63, duration: 0.8 },
-            { note: 392.00, duration: 0.8 },
-            { note: 349.23, duration: 1.2 },
-
-            { note: 261.63, duration: 0.4 },
-            { note: 261.63, duration: 0.4 },
-            { note: 523.25, duration: 0.8 },
-            { note: 440.00, duration: 0.8 },
-            { note: 349.23, duration: 0.8 },
-            { note: 329.63, duration: 0.8 },
-            { note: 293.66, duration: 0.8 },
-
-            { note: 466.16, duration: 0.4 },
-            { note: 466.16, duration: 0.4 },
-            { note: 440.00, duration: 0.8 },
-            { note: 349.23, duration: 0.8 },
-            { note: 392.00, duration: 0.8 },
-            { note: 349.23, duration: 1.4 }
-        ];
-
-        function playTone(freq, duration) {
-            if (!isPlaying || !audioCtx) return;
-
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + duration);
-        }
-
-        function playMelodySequence(index = 0) {
-            if (!isPlaying) return;
-
-            if (index >= birthdayNotes.length) {
-                index = 0;
-            }
-
-            const item = birthdayNotes[index];
-            playTone(item.note, item.duration);
-
-            currentTimeout = setTimeout(
-                () => playMelodySequence(index + 1),
-                item.duration * 600
-            );
-        }
-
-        function toggleAudio() {
-            const btnText = document.getElementById('musicBtnText');
-
-            if (!isPlaying) {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-
-                audioCtx.resume();
-                isPlaying = true;
-                btnText.innerText = 'Pause Music';
-                playMelodySequence();
-            } else {
-                isPlaying = false;
-                btnText.innerText = 'Play Music';
-                if (currentTimeout) {
-                    clearTimeout(currentTimeout);
-                }
-            }
-        }
-
-
-        /* --- 5. Floating Heart Particle Canvas --- */
-
-        const canvas = document.getElementById('heartCanvas');
-        const ctx = canvas.getContext('2d');
-        let hearts = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Heart {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 20;
-                this.size = Math.random() * 15 + 10;
-                this.speedY = Math.random() * 1.5 + 0.5;
-                this.opacity = Math.random() * 0.5 + 0.3;
-                this.swing = Math.random() * 0.02;
-                this.swingAngle = Math.random() * Math.PI * 2;
-            }
-
-            update() {
-                this.y -= this.speedY;
-                this.swingAngle += this.swing;
-                this.x += Math.sin(this.swingAngle) * 0.5;
-
-                if (this.y < -20) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = '#ff4b72';
-                ctx.beginPath();
-
-                const topCurveHeight = this.size * 0.3;
-
-                ctx.moveTo(this.x, this.y + topCurveHeight);
-                ctx.bezierCurveTo(
-                    this.x, this.y,
-                    this.x - this.size / 2, this.y,
-                    this.x - this.size / 2, this.y + topCurveHeight
-                );
-                ctx.bezierCurveTo(
-                    this.x - this.size / 2, this.y + (this.size + topCurveHeight) / 2,
-                    this.x, this.y + this.size,
-                    this.x, this.y + this.size
-                );
-                ctx.bezierCurveTo(
-                    this.x, this.y + (this.size + topCurveHeight) / 2,
-                    this.x + this.size / 2, this.y + (this.size + topCurveHeight) / 2,
-                    this.x + this.size / 2, this.y + topCurveHeight
-                );
-                ctx.bezierCurveTo(
-                    this.x + this.size / 2, this.y,
-                    this.x, this.y,
-                    this.x, this.y + topCurveHeight
-                );
-
-                ctx.closePath();
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        function initHearts() {
-            hearts = [];
-            const numberOfHearts = Math.floor(window.innerWidth / 20);
-            for (let i = 0; i < numberOfHearts; i++) {
-                const heart = new Heart();
-                heart.y = Math.random() * canvas.height;
-                hearts.push(heart);
-            }
-        }
-
-        function animateHearts() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            hearts.forEach(heart => {
-                heart.update();
-                heart.draw();
-            });
-            requestAnimationFrame(animateHearts);
-        }
-
-        initHearts();
-        animateHearts();
-
-    </script>
+class Heart {
+  constructor(){ this.reset(); }
+  reset(){
+    this.x = Math.random() * canvas.width;
+    this.y = canvas.height + 20;
+    this.size = Math.random() * 15 + 10;
+    this.speedY = Math.random() * 1.5 + .5;
+    this.opacity = Math.random() * .5 + .3;
+    this.swing = Math.random() * .02;
+    this.swingAngle = Math.random() * Math.PI * 2;
+  }
+  update(){
+    this.y -= this.speedY;
+    this.swingAngle += this.swing;
+    this.x += Math.sin(this.swingAngle) * .5;
+    if (this.y < -20) this.reset();
+  }
+  draw(){
+    const {x, y, size} = this, t = size * .3;
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.fillStyle = '#ff4b72';
+    ctx.beginPath();
+    ctx.moveTo(x, y + t);
+    ctx.bezierCurveTo(x, y, x - size/2, y, x - size/2, y + t);
+    ctx.bezierCurveTo(x - size/2, y + (size + t)/2, x, y + size, x, y + size);
+    ctx.bezierCurveTo(x, y + (size + t)/2, x + size/2, y + (size + t)/2, x + size/2, y + t);
+    ctx.bezierCurveTo(x + size/2, y, x, y, x, y + t);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+}
+function initHearts(){
+  hearts = [];
+  const n = Math.floor(window.innerWidth / 20);
+  for (let i = 0; i < n; i++){
+    const h = new Heart();
+    h.y = Math.random() * canvas.height;
+    hearts.push(h);
+  }
+}
+function animateHearts(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  hearts.forEach(h => { h.update(); h.draw(); });
+  requestAnimationFrame(animateHearts);
+}
+initHearts();
+animateHearts();
+</script>
 </body>
 </html>
