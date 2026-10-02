@@ -556,26 +556,40 @@
             </div>
         </div>
 
-   <!-- Photo -->
-<div class="photo-card-wrapper">
+        <!-- Photo -->
+        <div class="photo-card-wrapper">
 
-    <div class="polaroid-frame">
+            <div class="polaroid-frame">
 
-        <div class="polaroid-img-container">
-            <img 
-                id="displayImg"
-                src="zaii.jpg"
-                alt="Us Together"
-            >
+                <div class="polaroid-img-container">
+
+                    <!-- Standard Base64 SVG placeholder preventing browser file load failure -->
+                    <img
+                        id="displayImg"
+                        src="./zaii.jpg"
+                        alt="Us Together"
+                    >
+
+                    <label for="imageUpload" class="upload-overlay">
+                        <i class="fa-solid fa-camera"></i>
+                        Change Photo
+                    </label>
+
+                    <input
+                        type="file"
+                        id="imageUpload"
+                        accept="image/*"
+                        onchange="loadUserImage(event)"
+                    >
+
+                </div>
+
+                <div class="polaroid-caption">
+                    Forever My Favorite 💕
+                </div>
+
+            </div>
         </div>
-
-        <div class="polaroid-caption">
-            Forever My Favorite 💕
-        </div>
-
-    </div>
-
-</div>
 
         <!-- Love Letter -->
         <div class="letter-box">
@@ -647,7 +661,7 @@ Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forev
                     <i class="fa-solid fa-hourglass-half"
                        style="color: var(--accent); margin-right: 8px;">
                     </i>
-                    Days to count to see you
+                    Countdown To Our Next Reunion
                 </h4>
 
                 <div class="timer-grid">
@@ -715,6 +729,20 @@ Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forev
         }
 
 
+        /* --- 2. Custom Image Upload Handler --- */
+
+        function loadUserImage(event) {
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                const output = document.getElementById('displayImg');
+                output.src = reader.result;
+            };
+
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
 
 
         /* --- 3. Countdown To December 22, 2026 --- */
@@ -934,7 +962,7 @@ Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forev
                 heart.draw();
             });
             requestAnimationFrame(animateHearts);
-        }dddddddddd
+        }
 
         initHearts();
         animateHearts();
