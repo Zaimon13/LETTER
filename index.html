@@ -1,288 +1,1580 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy 21st Birthday, My Love! 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <title>Happy 21st Birthday, My Love! 💖</title>
 
-<style>
-:root{--primary:#ff4b72;--accent:#ffd166;--bg-gradient:linear-gradient(135deg,#0d0614 0%,#210d2b 50%,#150826 100%);--glass-bg:rgba(255,255,255,.07);--glass-border:rgba(255,255,255,.15);--text-light:#fff;--text-muted:#e2c0d8}
-*{box-sizing:border-box;margin:0;padding:0;user-select:none}
-body{font-family:'Poppins',sans-serif;background:var(--bg-gradient);color:var(--text-light);min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;align-items:center}
-#heartCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-.music-btn{position:fixed;top:20px;right:20px;z-index:100;background:rgba(255,75,114,.25);border:1px solid var(--primary);backdrop-filter:blur(10px);color:#fff;padding:10px 18px;border-radius:30px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:.9rem;transition:all .3s ease;box-shadow:0 0 15px rgba(255,75,114,.3)}
-.music-btn:hover{background:var(--primary);transform:scale(1.05);box-shadow:0 0 25px rgba(255,75,114,.6)}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-.app-container{width:100%;max-width:900px;padding:30px 20px 60px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:40px}
-.header{text-align:center;margin-top:10px}
-.header h1{font-family:'Dancing Script',cursive;font-size:3.8rem;background:linear-gradient(45deg,#ff758c,#ffd166,#ff4b72);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
-.header p{color:var(--text-muted);font-size:1.1rem;letter-spacing:1.5px;text-transform:uppercase}
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-.card-stage{perspective:1000px;width:100%;max-width:500px;height:300px;cursor:pointer}
-.envelope{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.175,.885,.32,1.275);background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:20px;backdrop-filter:blur(15px);box-shadow:0 15px 35px rgba(0,0,0,.5),0 0 30px rgba(255,75,114,.2)}
-.envelope.open{transform:rotateY(180deg)}
-.envelope-front,.envelope-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;border-radius:20px;text-align:center}
-.envelope-front{background:linear-gradient(135deg,rgba(255,75,114,.2),rgba(33,13,43,.8));border:1px solid rgba(255,255,255,.2)}
-.envelope-front i.seal{font-size:3.5rem;color:var(--primary);margin-bottom:15px;animation:pulse 1.5s infinite alternate;filter:drop-shadow(0 0 10px var(--primary))}
-.envelope-front span{font-size:1.2rem;font-weight:500;letter-spacing:1px}
-.envelope-back{transform:rotateY(180deg);background:linear-gradient(135deg,rgba(255,209,102,.15),rgba(33,13,43,.9));border:1px solid rgba(255,209,102,.3)}
-@keyframes pulse{0%{transform:scale(1)}100%{transform:scale(1.15)}}
+    <style>
 
-.photo-card-wrapper{width:100%;display:flex;flex-direction:column;align-items:center}
-.polaroid-frame{background:#fff;padding:15px 15px 25px;border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,.6),0 0 20px rgba(255,75,114,.3);transform:rotate(-2deg);transition:all .4s ease;max-width:380px;width:100%}
-.polaroid-frame:hover{transform:rotate(0) scale(1.02);box-shadow:0 25px 50px rgba(0,0,0,.8),0 0 30px rgba(255,75,114,.5)}
-.polaroid-img-container{width:100%;height:380px;background:#2b2b2b;border-radius:8px;overflow:hidden;position:relative;display:flex;justify-content:center;align-items:center}
-.polaroid-img-container img{width:100%;height:100%;object-fit:cover}
-.polaroid-caption{font-family:'Dancing Script',cursive;color:#222;font-size:1.8rem;text-align:center;margin-top:15px;font-weight:700}
+        :root {
+            --pink: #ff4f81;
+            --pink-light: #ff8fab;
+            --rose: #ffcad4;
+            --gold: #ffd166;
+            --purple: #9b5de5;
+            --dark: #08030d;
+            --dark-purple: #16091f;
+            --white-soft: rgba(255,255,255,.78);
+            --glass: rgba(255,255,255,.075);
+            --border: rgba(255,255,255,.14);
+        }
 
-.letter-box{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:24px;padding:35px 30px;backdrop-filter:blur(15px);width:100%;box-shadow:0 10px 30px rgba(0,0,0,.4);line-height:1.8;font-size:1.05rem;color:#f3e5f5}
-.letter-box h2{font-family:'Playfair Display',serif;color:var(--accent);font-size:1.8rem;margin-bottom:20px;text-align:center}
-.letter-content{white-space:pre-line;text-align:justify}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.redesigned-footer{width:100%;display:flex;flex-direction:column;gap:30px;margin-top:20px}
-.sky-card{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,75,114,.05));border:1px solid rgba(255,209,102,.25);border-radius:20px;padding:30px 20px;backdrop-filter:blur(12px);text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-.sky-card i.sky-icon{font-size:2.2rem;color:var(--accent);margin-bottom:12px;filter:drop-shadow(0 0 10px var(--accent))}
-.sky-card h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:#fff;margin-bottom:10px}
-.sky-card p{color:var(--text-muted);font-size:.95rem;max-width:600px;margin:0 auto 20px;line-height:1.6}
-.location-pills{display:flex;justify-content:center;align-items:center;gap:15px;flex-wrap:wrap}
-.pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);padding:8px 18px;border-radius:30px;font-size:.85rem;display:flex;align-items:center;gap:8px;color:#ffe6f0}
-.pill-connector{color:var(--primary);font-size:1.1rem;animation:pulse 1s infinite alternate}
+        html {
+            scroll-behavior: smooth;
+        }
 
-.countdown-card{background:rgba(255,255,255,.05);border:1px solid var(--glass-border);border-radius:20px;padding:25px 20px;backdrop-filter:blur(10px);text-align:center}
-.countdown-card h4{font-size:1.1rem;color:var(--text-muted);margin-bottom:18px;letter-spacing:1px;text-transform:uppercase}
-.timer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:450px;margin:0 auto}
-.timer-box{background:rgba(255,75,114,.12);border:1px solid rgba(255,75,114,.3);border-radius:12px;padding:12px 5px;display:flex;flex-direction:column;align-items:center}
-.timer-box .num{font-size:1.6rem;font-weight:700}
-.timer-box .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:2px}
+        body {
+            font-family: "Poppins", sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255,79,129,.16), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(155,93,229,.15), transparent 30%),
+                radial-gradient(circle at 50% 90%, rgba(255,209,102,.08), transparent 30%),
+                linear-gradient(135deg, #08030d, #16091f 50%, #0c0414);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-.bond-banner{background:linear-gradient(90deg,rgba(255,75,114,.2),rgba(255,209,102,.2));border:1px solid rgba(255,209,102,.4);border-radius:50px;padding:15px 25px;display:flex;align-items:center;justify-content:center;gap:15px;margin:0 auto;max-width:400px;box-shadow:0 0 20px rgba(255,209,102,.15)}
-.bond-banner i{font-size:1.4rem;color:var(--accent)}
-.bond-banner span{font-weight:600;letter-spacing:1px;font-size:.95rem;background:linear-gradient(45deg,#fff,var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.footer-credits{text-align:center;font-size:.85rem;color:rgba(255,255,255,.4);margin-top:10px}
+        /* =========================
+           STAR BACKGROUND
+        ========================= */
 
-@media (max-width:600px){.header h1{font-size:2.8rem}.timer-grid{gap:8px}.timer-box .num{font-size:1.3rem}.letter-box{padding:25px 20px}}
-</style>
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .5;
+            background-image:
+                radial-gradient(circle, white 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1px);
+            background-size: 90px 90px, 140px 140px;
+            background-position: 0 0, 40px 70px;
+            animation: stars 18s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes stars {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(90px);
+            }
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        #heartCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================
+           MUSIC BUTTON
+        ========================= */
+
+        .music-btn {
+            position: fixed;
+            top: 22px;
+            right: 22px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: rgba(20,8,28,.7);
+            color: white;
+            cursor: pointer;
+            backdrop-filter: blur(15px);
+            z-index: 50;
+            box-shadow: 0 0 25px rgba(255,79,129,.2);
+            transition: .3s;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 35px rgba(255,79,129,.45);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        header {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero-badge {
+            padding: 9px 18px;
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 50px;
+            background: rgba(255,255,255,.06);
+            backdrop-filter: blur(12px);
+            color: var(--rose);
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            box-shadow: 0 0 30px rgba(255,79,129,.1);
+        }
+
+        h1 {
+            font-family: "Dancing Script", cursive;
+            font-size: clamp(4rem, 10vw, 8rem);
+            line-height: .95;
+            background: linear-gradient(
+                135deg,
+                #fff,
+                #ffcad4,
+                #ff4f81
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(255,79,129,.3));
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 15px rgba(255,79,129,.25));
+            }
+
+            to {
+                filter: drop-shadow(0 0 40px rgba(255,79,129,.5));
+            }
+        }
+
+        .hero-subtitle {
+            max-width: 650px;
+            margin-top: 28px;
+            color: var(--white-soft);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .scroll-hint {
+            margin-top: 50px;
+            color: rgba(255,255,255,.45);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint i {
+            display: block;
+            margin-top: 10px;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            50% {
+                transform: translateY(7px);
+            }
+        }
+
+        /* =========================
+           SECTION TITLE
+        ========================= */
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title span {
+            display: block;
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            color: white;
+        }
+
+        .section-title p {
+            color: var(--white-soft);
+            max-width: 600px;
+            margin: 12px auto 0;
+            line-height: 1.7;
+        }
+
+        /* =========================
+           ENVELOPE
+        ========================= */
+
+        .letter-section {
+            margin: 0 auto 130px;
+        }
+
+        .envelope-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .envelope {
+            width: min(650px, 100%);
+            position: relative;
+            padding: 55px 45px;
+            text-align: center;
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.11),
+                    rgba(255,255,255,.035)
+                );
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.45),
+                inset 0 1px rgba(255,255,255,.1);
+            overflow: hidden;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--pink);
+            opacity: .1;
+            filter: blur(70px);
+            top: -170px;
+            left: -120px;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: var(--purple);
+            opacity: .1;
+            filter: blur(70px);
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .envelope-icon {
+            width: 90px;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: rgba(255,79,129,.12);
+            border: 1px solid rgba(255,79,129,.3);
+            color: var(--pink-light);
+            font-size: 38px;
+            box-shadow: 0 0 35px rgba(255,79,129,.18);
+        }
+
+        .envelope h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .envelope p {
+            color: var(--white-soft);
+            line-height: 1.8;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .open-btn {
+            margin-top: 30px;
+            padding: 15px 32px;
+            border: 0;
+            border-radius: 50px;
+            color: white;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--pink), #ff6b9a);
+            box-shadow:
+                0 12px 35px rgba(255,79,129,.3),
+                0 0 0 0 rgba(255,79,129,.3);
+            transition: .3s;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 18px 45px rgba(255,79,129,.45);
+        }
+
+        /* =========================
+           PHOTO
+        ========================= */
+
+        .photo-section {
+            margin-bottom: 140px;
+        }
+
+        .photo-stage {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .photo-glow {
+            position: absolute;
+            width: 330px;
+            height: 330px;
+            background: var(--pink);
+            filter: blur(100px);
+            opacity: .15;
+            border-radius: 50%;
+        }
+
+        .polaroid-frame {
+            position: relative;
+            width: min(450px, 90vw);
+            padding: 15px 15px 28px;
+            background: #fff;
+            box-shadow:
+                0 35px 80px rgba(0,0,0,.55),
+                0 0 50px rgba(255,79,129,.12);
+            transform: rotate(-3deg);
+            transition: .5s ease;
+            z-index: 2;
+        }
+
+        .polaroid-frame:hover {
+            transform: rotate(0deg) translateY(-10px);
+        }
+
+        .polaroid-img-container {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .polaroid-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .7s ease;
+        }
+
+        .polaroid-frame:hover img {
+            transform: scale(1.04);
+        }
+
+        .polaroid-caption {
+            color: #222;
+            text-align: center;
+            font-family: "Dancing Script", cursive;
+            font-size: 30px;
+            margin-top: 17px;
+        }
+
+        /* =========================
+           SAME SKY
+        ========================= */
+
+        .sky-section {
+            margin-bottom: 140px;
+        }
+
+        .sky-card {
+            padding: 60px 30px;
+            text-align: center;
+            border-radius: 30px;
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(95,55,180,.18),
+                    transparent 60%
+                ),
+                rgba(255,255,255,.045);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 30px 70px rgba(0,0,0,.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .moon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow:
+                0 0 25px rgba(255,255,255,.7),
+                0 0 70px rgba(255,255,255,.2);
+            position: relative;
+        }
+
+        .moon::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #110719;
+            left: 25px;
+            top: -10px;
+        }
+
+        .sky-card h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .sky-card p {
+            max-width: 650px;
+            margin: auto;
+            color: var(--white-soft);
+            line-height: 1.9;
+        }
+
+        .sky-locations {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .location {
+            padding: 14px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.06);
+        }
+
+        .location i {
+            color: var(--gold);
+            margin-right: 7px;
+        }
+
+        .location-heart {
+            color: var(--pink);
+            font-size: 24px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            50% {
+                transform: scale(1.25);
+            }
+        }
+
+        /* =========================
+           LOVE LETTER
+        ========================= */
+
+        .letter-box {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px;
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.08),
+                    rgba(255,255,255,.035)
+                );
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 30px 80px rgba(0,0,0,.35);
+        }
+
+        .letter-top {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .letter-top i {
+            color: var(--pink-light);
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .letter-top h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: 48px;
+        }
+
+        .letter-box p {
+            color: var(--white-soft);
+            line-height: 2;
+            margin-bottom: 22px;
+            font-size: 15px;
+        }
+
+        .letter-box .highlight {
+            color: white;
+            font-weight: 600;
+            font-size: 17px;
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        /* =========================
+           COUNTDOWN
+        ========================= */
+
+        .countdown-section {
+            margin: 140px 0;
+        }
+
+        .countdown-card {
+            text-align: center;
+            padding: 60px 25px;
+            border-radius: 30px;
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,79,129,.09),
+                    rgba(155,93,229,.08)
+                );
+            border: 1px solid var(--border);
+            box-shadow: 0 30px 80px rgba(0,0,0,.3);
+        }
+
+        .countdown-card h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            margin-bottom: 35px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .count-box {
+            width: 105px;
+            padding: 20px 10px;
+            border-radius: 20px;
+            background: rgba(0,0,0,.2);
+            border: 1px solid var(--border);
+        }
+
+        .count-number {
+            display: block;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--pink-light);
+        }
+
+        .count-label {
+            font-size: 10px;
+            color: var(--white-soft);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .reunion-date {
+            margin-top: 25px;
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        /* =========================
+           FINAL MESSAGE
+        ========================= */
+
+        .final-section {
+            text-align: center;
+            padding: 80px 20px 130px;
+        }
+
+        .final-heart {
+            font-size: 70px;
+            color: var(--pink);
+            text-shadow: 0 0 35px rgba(255,79,129,.5);
+            animation: heartBeat 1.5s infinite;
+        }
+
+        .final-section h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            margin-top: 20px;
+        }
+
+        .final-section p {
+            color: var(--white-soft);
+            margin-top: 15px;
+        }
+
+        .final-love {
+            color: var(--pink-light);
+            font-weight: 600;
+            margin-top: 25px !important;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,.08);
+            background: rgba(0,0,0,.15);
+        }
+
+        footer h3 {
+            font-family: "Dancing Script", cursive;
+            font-size: 35px;
+        }
+
+        footer p {
+            margin-top: 10px;
+            color: rgba(255,255,255,.5);
+            font-size: 12px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .music-btn {
+                width: 45px;
+                height: 45px;
+                right: 15px;
+                top: 15px;
+            }
+
+            header {
+                min-height: 85vh;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .envelope {
+                padding: 45px 25px;
+            }
+
+            .polaroid-img-container {
+                height: 380px;
+            }
+
+            .letter-box {
+                padding: 35px 23px;
+            }
+
+            .letter-top h2 {
+                font-size: 39px;
+            }
+
+            .letter-box p {
+                font-size: 14px;
+                line-height: 1.85;
+            }
+
+            .sky-card {
+                padding: 50px 20px;
+            }
+
+            .sky-card h2 {
+                font-size: 40px;
+            }
+
+            .count-box {
+                width: 75px;
+            }
+
+            .count-number {
+                font-size: 25px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
-<canvas id="heartCanvas"></canvas>
 
-<button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()">
-  <i class="fa-solid fa-music"></i>
-  <span id="musicBtnText">Play Music</span>
-</button>
+    <!-- Floating Hearts -->
+    <canvas id="heartCanvas"></canvas>
 
-<div class="app-container">
+    <!-- Music Button -->
+    <button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()">
+        <i class="fa-solid fa-music"></i>
+    </button>
 
-  <header class="header">
-    <h1>Happy Birthday, My Love! 💕</h1>
-    <p>Celebrating Your Special 21st Milestone</p>
-  </header>
 
-  <div class="card-stage" onclick="openEnvelope()">
-    <div class="envelope" id="envelope">
-      <div class="envelope-front">
-        <i class="fa-solid fa-heart seal"></i>
-        <span>Tap to Open Your Card ✨</span>
-      </div>
-      <div class="envelope-back">
-        <i class="fa-solid fa-cake-candles" style="font-size:3rem;color:var(--accent);margin-bottom:10px;"></i>
-        <h3 style="font-family:'Dancing Script';font-size:2.2rem;color:#fff;">Happy 21st Birthday!</h3>
-        <p style="font-size:.85rem;color:var(--text-muted);margin-top:5px;">Click anywhere to trigger confetti 🎉</p>
-      </div>
+    <div class="container">
+
+        <!-- =========================
+             HERO
+        ========================= -->
+
+        <header>
+
+            <div class="hero-badge">
+                A little something for you ✨
+            </div>
+
+            <h1>
+                Happy Birthday,<br>
+                My Love! 💕
+            </h1>
+
+            <p class="hero-subtitle">
+                Today isn't just another day.
+                It's the day the world was blessed with you.
+                So I made this little space on the internet
+                just to celebrate you and everything you mean to me.
+            </p>
+
+            <div class="scroll-hint">
+                Scroll down
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             BIRTHDAY SURPRISE
+        ========================= -->
+
+        <section class="letter-section">
+
+            <div class="section-title">
+
+                <span>Something special</span>
+
+                <h2>Made Just For You 💌</h2>
+
+                <p>
+                    I wanted to give you something that you could keep,
+                    look back on, and remember how loved you are.
+                </p>
+
+            </div>
+
+
+            <div class="envelope-container">
+
+                <div class="envelope">
+
+                    <div class="envelope-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+
+                    <h2>
+                        A Little Birthday Surprise
+                    </h2>
+
+                    <p>
+                        There's a little message waiting for you.
+                        Take a moment, breathe, and open your heart.
+                    </p>
+
+                    <button class="open-btn" onclick="openEnvelope()">
+                        Open My Heart ❤️
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PHOTO
+        ========================= -->
+
+        <section class="photo-section">
+
+            <div class="section-title">
+
+                <span>One of my favorite memories</span>
+
+                <h2>Us. Always Us. 📸</h2>
+
+            </div>
+
+            <div class="photo-stage">
+
+                <div class="photo-glow"></div>
+
+                <div class="polaroid-frame">
+
+                    <div class="polaroid-img-container">
+
+                        <img
+                            id="displayImg"
+                            src="./images/zaii.jpg"
+                            alt="Us Together"
+                        >
+
+                    </div>
+
+                    <div class="polaroid-caption">
+                        Forever My Favorite 💕
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SAME SKY
+        ========================= -->
+
+        <section class="sky-section">
+
+            <div class="section-title">
+
+                <span>Even from miles away</span>
+
+                <h2>One Sky Above Us 🌌</h2>
+
+            </div>
+
+            <div class="sky-card">
+
+                <div class="moon"></div>
+
+                <h2>
+                    Different places.<br>
+                    Same sky.
+                </h2>
+
+                <p>
+                    No matter how many ocean miles or time zones divide us,
+                    we're still looking up at the exact same moon,
+                    the same stars, and sharing the same sun.
+                    Distance can separate where we are,
+                    but it can't change where my heart belongs.
+                </p>
+
+                <div class="sky-locations">
+
+                    <div class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        Philippines 🇵🇭
+                    </div>
+
+                    <div class="location-heart">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+
+                    <div class="location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        New Zealand 🇳🇿
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             LOVE LETTER
+        ========================= -->
+
+        <section class="letter-section">
+
+            <div class="letter-box">
+
+                <div class="letter-top">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    <h2>
+                        To My Beautiful Birthday Girl ✨
+                    </h2>
+
+                </div>
+
+
+                <p>
+                    Happy 21st Birthday to the absolute love of my life! 💖✨🎂
+                </p>
+
+                <p>
+                    Today is such a special day because it celebrates the
+                    beautiful person that you are. I hope you know how much
+                    you mean to me and how grateful I am to have you in my life.
+                </p>
+
+                <p>
+                    Even though we are miles apart, you never really feel far away.
+                    No matter how many ocean miles or time zones divide us,
+                    we are always looking up at the same sky, sharing the same sun,
+                    the same moon, and the same stars.
+                </p>
+
+                <p>
+                    Thank you for being patient with me, for understanding me,
+                    and for staying beside me even during the days when things
+                    aren't always easy. I appreciate every little thing you do
+                    more than I can put into words.
+                </p>
+
+                <p>
+                    I know I am not perfect, and there are times when I get busy,
+                    distracted, or don't give you the attention you deserve.
+                    But please know that my love for you never changes.
+                    I will always choose to understand you, communicate with you,
+                    and grow together with you.
+                </p>
+
+                <p>
+                    Watching you turn 21 makes me so happy because I get to
+                    witness another beautiful chapter of your life.
+                    I hope this year brings you happiness, peace, success,
+                    and all the things you've been wishing for.
+                </p>
+
+                <p>
+                    And someday, all these calls, messages, countdowns,
+                    and time-zone differences will become memories.
+                    We'll finally be together in the same place,
+                    making the memories we've been waiting for.
+                </p>
+
+                <p>
+                    Until then, I'll keep loving you from wherever I am.
+                    Distance may separate us physically,
+                    but it will never change what you mean to me.
+                </p>
+
+                <p class="highlight">
+                    Happy 21st Birthday, my beautiful girl! ❤️
+                    <br>
+                    I love you so, so much, always and forever. 🥳🎂🎉
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COUNTDOWN
+        ========================= -->
+
+        <section class="countdown-section">
+
+            <div class="section-title">
+
+                <span>Until the distance disappears</span>
+
+                <h2>Our Next Chapter ❤️</h2>
+
+            </div>
+
+            <div class="countdown-card">
+
+                <h2>
+                    Until We See Each Other Again
+                </h2>
+
+                <div class="countdown">
+
+                    <div class="count-box">
+                        <span class="count-number" id="days">0</span>
+                        <span class="count-label">Days</span>
+                    </div>
+
+                    <div class="count-box">
+                        <span class="count-number" id="hours">0</span>
+                        <span class="count-label">Hours</span>
+                    </div>
+
+                    <div class="count-box">
+                        <span class="count-number" id="minutes">0</span>
+                        <span class="count-label">Minutes</span>
+                    </div>
+
+                    <div class="count-box">
+                        <span class="count-number" id="seconds">0</span>
+                        <span class="count-label">Seconds</span>
+                    </div>
+
+                </div>
+
+                <div class="reunion-date">
+                    DECEMBER 22, 2026 ✈️💕
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             FINAL MESSAGE
+        ========================= -->
+
+        <section class="final-section">
+
+            <div class="final-heart">
+                ❤️
+            </div>
+
+            <h2>
+                No Distance Can Change That.
+            </h2>
+
+            <p>
+                Happy 21st Birthday, my love.
+            </p>
+
+            <p class="final-love">
+                I love you today, tomorrow, and every day after. 💕
+            </p>
+
+        </section>
+
     </div>
-  </div>
 
-  <!-- Photo -->
-  <div class="photo-card-wrapper">
-    <div class="polaroid-frame">
-      <div class="polaroid-img-container">
-        <img id="displayImg" src="/images/zaii.jpg" alt="Us Together">
-      </div>
-      <div class="polaroid-caption">Forever My Favorite 💕</div>
-    </div>
-  </div>
 
-  <!-- Love Letter -->
-  <div class="letter-box">
-    <h2>To My Beautiful Birthday Girl ✨</h2>
-    <div class="letter-content">
-<strong>Happy 21st Birthday to the absolute love of my life! 💖✨🎂</strong>
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-Today is such a monumental milestone as you officially turn 21, and even though there are thousands of miles and whole time zones separating us right now, I hope you can feel every bit of my heart holding you close today. If I could jump through this screen right now just to bring you your favorite food, hold your hand, and see that gorgeous smile of yours in person, I would do it in a heartbeat.
+    <footer>
 
-I want to start by saying the biggest thank you for simply existing and for being the most incredible partner I could ever ask for. Thank you for making the distance feel like nothing with the way you love me so genuinely and unconditionally. Thank you for your endless patience, your comforting calls, your sweet messages, and for being my safe space whenever life gets overwhelming. Even when we are physically apart, you still bring the greatest happiness into my world every single day. You have brought so much light, warmth, and magic into my life, and I would never trade what we have for anything.
+        <h3>
+            An Unbreakable Bond Across Distance 🌌
+        </h3>
 
-Along with my deepest gratitude, I also want to take today as an opportunity to sincerely say sorry for everything. I am truly sorry for all my shortcomings, for the times I made mistakes, and for the moments I may have caused you stress or hurt your feelings. I know I am far from perfect and I still make mistakes, but please know that my love for you is always true and pure. Thank you for never giving up on me, for understanding my flaws, and for choosing to stay by my side through every single high and low. I promise to keep growing, learning, and working hard every single day to be the partner you truly deserve.
+        <p>
+            Made with ❤️ for your 21st Birthday
+        </p>
 
-As you step into this exciting new chapter of being 21, I pray that the universe blesses you with endless happiness, success, peace, and fulfillment. You have such a big, beautiful, and kind heart, and you deserve nothing less than the absolute best that life has to offer. Keep shining bright and reaching for all your big dreams, my love. I will always be right here, your biggest supporter, cheering for you from across the ocean until the day I can cheer for you right beside you.
+    </footer>
 
-I am counting down the days until there are no more screens between us, no more goodbyes after calls, and no more distance, just us, finally holding each other for real.
 
-Enjoy your special day, my love! Eat lots of delicious food and take good care of yourself over there. My love for you will never change and will only grow deeper and stronger with each passing day.
+    <script>
 
-Happy 21st Birthday, my beautiful girl! I love you so, so much, always and forever. 🥳🎂🎉❤️
-    </div>
-  </div>
+        /* =========================
+           ENVELOPE / CONFETTI
+        ========================= */
 
-  <footer class="redesigned-footer">
-    <div class="sky-card">
-      <i class="fa-solid fa-cloud-moon sky-icon"></i>
-      <h3>One Sky Above Us 🌌</h3>
-      <p>No matter how many ocean miles or time zones divide us, we are always looking up at the exact same sky and sharing the exact same sun and stars.</p>
-      <div class="location-pills">
-        <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Philippines</div>
-        <i class="fa-solid fa-heart pill-connector"></i>
-        <div class="pill"><i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> New Zealand</div>
-      </div>
-    </div>
+        function openEnvelope() {
 
-    <div class="countdown-card">
-      <h4><i class="fa-solid fa-hourglass-half" style="color:var(--accent);margin-right:8px;"></i>Countdown To Our Next Reunion</h4>
-      <div class="timer-grid">
-        <div class="timer-box"><span class="num" id="days">--</span><span class="label">Days</span></div>
-        <div class="timer-box"><span class="num" id="hours">--</span><span class="label">Hours</span></div>
-        <div class="timer-box"><span class="num" id="minutes">--</span><span class="label">Mins</span></div>
-        <div class="timer-box"><span class="num" id="seconds">--</span><span class="label">Secs</span></div>
-      </div>
-    </div>
+            confetti({
+                particleCount: 180,
+                spread: 110,
+                startVelocity: 35,
+                origin: {
+                    y: 0.6
+                }
+            });
 
-    <div class="bond-banner">
-      <i class="fa-solid fa-infinity"></i>
-      <span>An Unbreakable Bond Across Distance</span>
-      <i class="fa-solid fa-infinity"></i>
-    </div>
+            setTimeout(() => {
 
-    <div class="footer-credits">Made with ❤️ for your 21st Birthday</div>
-  </footer>
-</div>
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: {
+                        x: 0.15,
+                        y: 0.65
+                    }
+                });
 
-<script>
-/* 1. Envelope + confetti */
-function openEnvelope(){
-  document.getElementById('envelope').classList.toggle('open');
-  triggerConfetti();
-}
-function triggerConfetti(){
-  if (typeof confetti === 'function') confetti({particleCount:100,spread:70,origin:{y:.6}});
-}
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: {
+                        x: 0.85,
+                        y: 0.65
+                    }
+                });
 
-/* 2. Countdown to December 22, 2026 */
-const targetDate = new Date("December 22, 2026 00:00:00").getTime();
-function updateCountdown(){
-  const distance = targetDate - Date.now();
-  const set = (id, v) => document.getElementById(id).innerText = String(v).padStart(2,'0');
-  if (distance <= 0){ ['days','hours','minutes','seconds'].forEach(id => set(id,0)); return; }
-  set('days', Math.floor(distance / 86400000));
-  set('hours', Math.floor(distance / 3600000 % 24));
-  set('minutes', Math.floor(distance / 60000 % 60));
-  set('seconds', Math.floor(distance / 1000 % 60));
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+            }, 350);
 
-/* 3. Birthday melody (Web Audio) */
-let audioCtx = null, isPlaying = false, currentTimeout = null;
-const birthdayNotes = [
-  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:293.66,duration:.8},{note:261.63,duration:.8},{note:349.23,duration:.8},{note:329.63,duration:1.2},
-  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:293.66,duration:.8},{note:261.63,duration:.8},{note:392.00,duration:.8},{note:349.23,duration:1.2},
-  {note:261.63,duration:.4},{note:261.63,duration:.4},{note:523.25,duration:.8},{note:440.00,duration:.8},{note:349.23,duration:.8},{note:329.63,duration:.8},{note:293.66,duration:.8},
-  {note:466.16,duration:.4},{note:466.16,duration:.4},{note:440.00,duration:.8},{note:349.23,duration:.8},{note:392.00,duration:.8},{note:349.23,duration:1.4}
-];
-function playTone(freq, duration){
-  if (!isPlaying || !audioCtx) return;
-  const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(.15, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(.001, audioCtx.currentTime + duration);
-  osc.connect(gain); gain.connect(audioCtx.destination);
-  osc.start(); osc.stop(audioCtx.currentTime + duration);
-}
-function playMelodySequence(index = 0){
-  if (!isPlaying) return;
-  if (index >= birthdayNotes.length) index = 0;
-  const item = birthdayNotes[index];
-  playTone(item.note, item.duration);
-  currentTimeout = setTimeout(() => playMelodySequence(index + 1), item.duration * 600);
-}
-function toggleAudio(){
-  const btnText = document.getElementById('musicBtnText');
-  if (!isPlaying){
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    audioCtx.resume();
-    isPlaying = true;
-    btnText.innerText = 'Pause Music';
-    playMelodySequence();
-  } else {
-    isPlaying = false;
-    btnText.innerText = 'Play Music';
-    if (currentTimeout) clearTimeout(currentTimeout);
-  }
-}
+        }
 
-/* 4. Floating hearts */
-const canvas = document.getElementById('heartCanvas');
-const ctx = canvas.getContext('2d');
-let hearts = [];
-function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
 
-class Heart {
-  constructor(){ this.reset(); }
-  reset(){
-    this.x = Math.random() * canvas.width;
-    this.y = canvas.height + 20;
-    this.size = Math.random() * 15 + 10;
-    this.speedY = Math.random() * 1.5 + .5;
-    this.opacity = Math.random() * .5 + .3;
-    this.swing = Math.random() * .02;
-    this.swingAngle = Math.random() * Math.PI * 2;
-  }
-  update(){
-    this.y -= this.speedY;
-    this.swingAngle += this.swing;
-    this.x += Math.sin(this.swingAngle) * .5;
-    if (this.y < -20) this.reset();
-  }
-  draw(){
-    const {x, y, size} = this, t = size * .3;
-    ctx.save();
-    ctx.globalAlpha = this.opacity;
-    ctx.fillStyle = '#ff4b72';
-    ctx.beginPath();
-    ctx.moveTo(x, y + t);
-    ctx.bezierCurveTo(x, y, x - size/2, y, x - size/2, y + t);
-    ctx.bezierCurveTo(x - size/2, y + (size + t)/2, x, y + size, x, y + size);
-    ctx.bezierCurveTo(x, y + (size + t)/2, x + size/2, y + (size + t)/2, x + size/2, y + t);
-    ctx.bezierCurveTo(x + size/2, y, x, y, x, y + t);
-    ctx.closePath();
-    ctx.fill();
-    ctx.restore();
-  }
-}
-function initHearts(){
-  hearts = [];
-  const n = Math.floor(window.innerWidth / 20);
-  for (let i = 0; i < n; i++){
-    const h = new Heart();
-    h.y = Math.random() * canvas.height;
-    hearts.push(h);
-  }
-}
-function animateHearts(){
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  hearts.forEach(h => { h.update(); h.draw(); });
-  requestAnimationFrame(animateHearts);
-}
-initHearts();
-animateHearts();
-</script>
+        /* =========================
+           COUNTDOWN
+        ========================= */
+
+        const reunionDate =
+            new Date("December 22, 2026 00:00:00").getTime();
+
+
+        function updateCountdown() {
+
+            const now = new Date().getTime();
+
+            const distance = reunionDate - now;
+
+
+            if (distance <= 0) {
+
+                document.getElementById("days").textContent = "0";
+                document.getElementById("hours").textContent = "0";
+                document.getElementById("minutes").textContent = "0";
+                document.getElementById("seconds").textContent = "0";
+
+                return;
+            }
+
+
+            const days =
+                Math.floor(
+                    distance / (1000 * 60 * 60 * 24)
+                );
+
+
+            const hours =
+                Math.floor(
+                    (distance % (1000 * 60 * 60 * 24))
+                    / (1000 * 60 * 60)
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (distance % (1000 * 60 * 60))
+                    / (1000 * 60)
+                );
+
+
+            const seconds =
+                Math.floor(
+                    (distance % (1000 * 60))
+                    / 1000
+                );
+
+
+            document.getElementById("days").textContent = days;
+
+            document.getElementById("hours").textContent = hours;
+
+            document.getElementById("minutes").textContent = minutes;
+
+            document.getElementById("seconds").textContent = seconds;
+
+        }
+
+
+        updateCountdown();
+
+        setInterval(updateCountdown, 1000);
+
+
+        /* =========================
+           HAPPY BIRTHDAY MUSIC 🎂
+        ========================= */
+
+        let audioContext;
+        let musicPlaying = false;
+        let melodyTimeout;
+        let currentNote = 0;
+
+        const melody = [
+
+            ["G4", 0.35],
+            ["G4", 0.35],
+            ["A4", 0.7],
+            ["G4", 0.7],
+            ["C5", 0.7],
+            ["B4", 1.0],
+
+            ["G4", 0.35],
+            ["G4", 0.35],
+            ["A4", 0.7],
+            ["G4", 0.7],
+            ["D5", 0.7],
+            ["C5", 1.0],
+
+            ["G4", 0.35],
+            ["G4", 0.35],
+            ["G5", 0.7],
+            ["E5", 0.7],
+            ["C5", 0.7],
+            ["B4", 0.7],
+            ["A4", 1.0],
+
+            ["F5", 0.35],
+            ["F5", 0.35],
+            ["E5", 0.7],
+            ["C5", 0.7],
+            ["D5", 0.7],
+            ["C5", 1.2]
+
+        ];
+
+
+        const frequencies = {
+
+            "C5": 523.25,
+            "D5": 587.33,
+            "E5": 659.25,
+            "F5": 698.46,
+            "G5": 783.99,
+            "A5": 880.00,
+
+            "G4": 392.00,
+            "A4": 440.00,
+            "B4": 493.88
+
+        };
+
+
+        function playBirthdayNote() {
+
+            if (!musicPlaying) {
+                return;
+            }
+
+
+            const [note, duration] =
+                melody[currentNote];
+
+
+            const oscillator =
+                audioContext.createOscillator();
+
+
+            const gainNode =
+                audioContext.createGain();
+
+
+            oscillator.type = "sine";
+
+            oscillator.frequency.value =
+                frequencies[note];
+
+
+            gainNode.gain.setValueAtTime(
+                0.0001,
+                audioContext.currentTime
+            );
+
+
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.055,
+                audioContext.currentTime + 0.03
+            );
+
+
+            gainNode.gain.exponentialRampToValueAtTime(
+                0.0001,
+                audioContext.currentTime + duration - 0.03
+            );
+
+
+            oscillator.connect(gainNode);
+
+            gainNode.connect(
+                audioContext.destination
+            );
+
+
+            oscillator.start();
+
+
+            oscillator.stop(
+                audioContext.currentTime + duration
+            );
+
+
+            currentNote++;
+
+
+            if (currentNote >= melody.length) {
+                currentNote = 0;
+            }
+
+
+            melodyTimeout = setTimeout(
+                playBirthdayNote,
+                duration * 1000
+            );
+
+        }
+
+
+        function toggleAudio() {
+
+            const button =
+                document.getElementById(
+                    "musicToggleBtn"
+                );
+
+
+            if (!audioContext) {
+
+                audioContext =
+                    new (
+                        window.AudioContext ||
+                        window.webkitAudioContext
+                    )();
+
+            }
+
+
+            if (!musicPlaying) {
+
+                musicPlaying = true;
+
+                currentNote = 0;
+
+                audioContext.resume();
+
+
+                button.innerHTML =
+                    '<i class="fa-solid fa-volume-high"></i>';
+
+
+                playBirthdayNote();
+
+            }
+
+            else {
+
+                musicPlaying = false;
+
+                clearTimeout(melodyTimeout);
+
+
+                button.innerHTML =
+                    '<i class="fa-solid fa-music"></i>';
+
+            }
+
+        }
+
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        const canvas =
+            document.getElementById("heartCanvas");
+
+        const ctx =
+            canvas.getContext("2d");
+
+
+        let hearts = [];
+
+
+        function resizeCanvas() {
+
+            canvas.width =
+                window.innerWidth;
+
+            canvas.height =
+                window.innerHeight;
+
+        }
+
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas
+        );
+
+
+        resizeCanvas();
+
+
+        function createHeart() {
+
+            hearts.push({
+
+                x:
+                    Math.random() *
+                    canvas.width,
+
+                y:
+                    canvas.height + 20,
+
+                size:
+                    Math.random() * 10 + 6,
+
+                speed:
+                    Math.random() * 1.4 + .4,
+
+                opacity:
+                    Math.random() * .45 + .15,
+
+                drift:
+                    Math.random() * 1 - .5
+
+            });
+
+        }
+
+
+        function drawHeart(
+            x,
+            y,
+            size,
+            opacity
+        ) {
+
+            ctx.save();
+
+            ctx.globalAlpha = opacity;
+
+            ctx.fillStyle = "#ff4f81";
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                x,
+                y + size / 4
+            );
+
+
+            ctx.bezierCurveTo(
+                x - size,
+                y - size / 2,
+                x - size,
+                y + size / 2,
+                x,
+                y + size
+            );
+
+
+            ctx.bezierCurveTo(
+                x + size,
+                y + size / 2,
+                x + size,
+                y - size / 2,
+                x,
+                y + size / 4
+            );
+
+
+            ctx.fill();
+
+            ctx.restore();
+
+        }
+
+
+        function animateHearts() {
+
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+
+            if (Math.random() < .055) {
+
+                createHeart();
+
+            }
+
+
+            hearts.forEach(
+                (heart, index) => {
+
+                    heart.y -=
+                        heart.speed;
+
+                    heart.x +=
+                        heart.drift;
+
+
+                    drawHeart(
+                        heart.x,
+                        heart.y,
+                        heart.size,
+                        heart.opacity
+                    );
+
+
+                    if (heart.y < -30) {
+
+                        hearts.splice(
+                            index,
+                            1
+                        );
+
+                    }
+
+                }
+            );
+
+
+            requestAnimationFrame(
+                animateHearts
+            );
+
+        }
+
+
+        animateHearts();
+
+    </script>
+
 </body>
 </html>
